@@ -1,0 +1,6 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": ["Supabase", "NextAuth", "TypeScript", "TailwindCSS"],
+  "ignorePaths": ["node_modules", "dist", ".next", "build"]
+}

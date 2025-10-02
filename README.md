@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+📚 Mini LMS App
+A minimal Learning Management System (LMS) starter built with Next.js 15, TypeScript, and TailwindCSS.
+This project is designed as a foundation for building online course platforms, featuring a clean developer workflow with TypeScript type checking, ESLint linting, and Prettier formatting.
 
-## Getting Started
+🚀 Features
 
-First, run the development server:
+⚡ Next.js 15 (App Router) with TypeScript
 
-```bash
+🎨 TailwindCSS for styling
+
+✅ ESLint + Prettier with flat config for clean, consistent code
+
+🔒 Strict type-checking using tsc --noEmit
+
+🧹 Pre-commit safe workflow → check lint + types before pushing
+
+📦 Ready for future LMS features (auth, courses, payments, dashboard)
+
+📂 Project Structure
+my-app/
+├── public/ # Static assets
+├── src/
+│ └── app/ # Next.js App Router (pages, layouts, etc.)
+├── eslint.config.mjs # ESLint flat config
+├── .prettierrc # Prettier configuration
+├── package.json # Scripts and dependencies
+├── tsconfig.json # TypeScript configuration
+└── README.md # Project documentation
+
+🛠️ Setup
+
+Clone the repo
+
+git clone https://github.com/your-username/mini-lms-app.git
+cd mini-lms-app/my-app
+
+Install dependencies
+
+npm install
+
+Run dev server
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open in browser
+http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+📏 Scripts
+Command Description
+npm run dev Start development server
+npm run build Build for production
+npm run start Start production server
+npm run lint Run ESLint to check for code issues
+npm run lint:fix Auto-fix lint/formatting issues where possible
+npm run typecheck Run TypeScript + ESLint checks together
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+👉 The recommended workflow:
 
-## Learn More
+npm run typecheck
 
-To learn more about Next.js, take a look at the following resources:
+Fix issues → rerun → then commit.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+🔧 Developer Workflow
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Write your code → run npm run typecheck.
 
-## Deploy on Vercel
+If formatting issues appear, run npm run lint:fix.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Only commit when the project passes with 0 errors.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+(Optional: add Husky pre-commit hook to enforce checks before committing.)
+
+📌 Roadmap
+
+User authentication (Supabase / NextAuth)
+
+Course dashboard (enrollments, progress tracking)
+
+Payment integration (Stripe, Razorpay, GPay)
+
+Multi-language landing page
+
+Admin panel for uploading courses
