@@ -84,13 +84,13 @@ export default function SignupPage() {
             className="text-center mb-8"
           >
             <span className="inline-block bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-semibold mb-4">
-              🚀 Join 10,000+ Job Seekers
+              🚀 Join 5,000+ Non-Techies Already Learning Vibe Coding
             </span>
             <h1 className="text-3xl sm:text-4xl font-bold text-primary mb-2">
-              Start Your <span className="text-accent">Success Story</span>
+              Start Your <span className="text-accent">Vibe Coding Journey</span> Today
             </h1>
             <p className="text-primary/60 text-sm sm:text-base">
-              Get instant access to AI-powered career tools
+              No coding required. Just prompts, creativity, and results — for only ₹99.
             </p>
           </motion.div>
 
@@ -102,14 +102,14 @@ export default function SignupPage() {
             onSubmit={handleSubmit}
             className="space-y-6"
           >
-            {/* Username Field */}
+            {/* Name Field */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
             >
               <label htmlFor="username" className="block text-sm font-semibold text-primary mb-2">
-                Username
+                Name (or Username)
               </label>
               <div className="relative">
                 <input
@@ -120,7 +120,7 @@ export default function SignupPage() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 bg-white border-2 border-primary/20 rounded-lg focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-primary placeholder:text-primary/40"
-                  placeholder="Enter your username"
+                  placeholder="Enter your name or username"
                 />
                 <motion.div
                   initial={{ scale: 0 }}
@@ -174,7 +174,7 @@ export default function SignupPage() {
                 whileTap={{ scale: 0.98 }}
                 className="w-full bg-primary text-white px-8 py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-shadow text-base sm:text-lg relative overflow-hidden group"
               >
-                <span className="relative z-10">Unlock Your Potential →</span>
+                <span className="relative z-10">Get Instant Access – ₹99 →</span>
                 <motion.div
                   className="absolute inset-0 bg-accent/20"
                   initial={{ x: "-100%" }}
@@ -195,19 +195,19 @@ export default function SignupPage() {
                 <div className="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
                   <span className="text-accent text-xs">✓</span>
                 </div>
-                <span>AI-powered interview preparation</span>
+                <span>Learn coding concepts without writing code</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-primary/70">
                 <div className="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
                   <span className="text-accent text-xs">✓</span>
                 </div>
-                <span>Resume optimization tools</span>
+                <span>Create websites & projects using AI prompts</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-primary/70">
                 <div className="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
                   <span className="text-accent text-xs">✓</span>
                 </div>
-                <span>Aptitude test practice with AI feedback</span>
+                <span>Lifetime access for just ₹99</span>
               </div>
             </motion.div>
           </motion.form>
@@ -221,7 +221,7 @@ export default function SignupPage() {
           className="mt-6 text-center"
         >
           <p className="text-sm text-primary/60">
-            By signing up, you agree to our{" "}
+            By joining, you agree to our{" "}
             <a href="#" className="text-accent hover:underline">
               Terms of Service
             </a>{" "}
@@ -229,6 +229,7 @@ export default function SignupPage() {
             <a href="#" className="text-accent hover:underline">
               Privacy Policy
             </a>
+            . No spam, ever.
           </p>
         </motion.div>
       </div>
