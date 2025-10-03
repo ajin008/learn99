@@ -95,7 +95,7 @@ export default function Hero() {
               <div className="relative z-10">
                 <Image
                   src="/3d_3.png"
-                  alt="AI Career Assistant"
+                  alt="No-Code AI Platform"
                   width={500}
                   height={500}
                   className="w-full h-auto drop-shadow-2xl"
@@ -103,7 +103,7 @@ export default function Hero() {
                 />
               </div>
 
-              {/* Floating badges - responsive positioning */}
+              {/* Floating badges - updated content */}
               <motion.div
                 animate={{
                   y: [0, -10, 0],
@@ -116,7 +116,7 @@ export default function Hero() {
                 }}
                 className="absolute top-4 -left-2 sm:top-10 sm:-left-4 bg-white rounded-lg shadow-xl px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold z-20"
               >
-                🎯 Interview Ready
+                ✨ Beginner Friendly
               </motion.div>
 
               <motion.div
@@ -132,7 +132,7 @@ export default function Hero() {
                 }}
                 className="absolute bottom-12 -right-2 sm:bottom-20 sm:-right-4 bg-white rounded-lg shadow-xl px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold z-20"
               >
-                ✨ AI Powered
+                💻 Live Demos
               </motion.div>
 
               {/* Price tag badge - eye-catching */}
@@ -160,7 +160,7 @@ export default function Hero() {
               transition={{ delay: 0.3, duration: 0.6 }}
             >
               <span className="inline-block bg-accent/10 text-accent px-4 py-2 rounded-full text-xs sm:text-sm font-semibold">
-                🚀 AI-Powered Career Toolkit
+                🚀 No-Code, Just Prompts
               </span>
             </motion.div>
 
@@ -170,9 +170,9 @@ export default function Hero() {
               transition={{ delay: 0.4, duration: 0.6 }}
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
             >
-              Land Your{" "}
+              Build Websites & Apps{" "}
               <span className="text-accent relative">
-                Dream Job
+                Without Coding
                 <motion.span
                   className="absolute -bottom-1 left-0 right-0 h-1 bg-accent/30"
                   initial={{ scaleX: 0 }}
@@ -180,7 +180,7 @@ export default function Hero() {
                   transition={{ delay: 0.8, duration: 0.6 }}
                 />
               </span>{" "}
-              with AI
+              — Just Vibe With AI
             </motion.h1>
 
             <motion.p
@@ -189,9 +189,10 @@ export default function Hero() {
               transition={{ delay: 0.5, duration: 0.6 }}
               className="text-sm sm:text-base md:text-lg text-primary/70 max-w-md mx-auto md:mx-0"
             >
-              Crack interviews, ace aptitude tests, and get your resume shortlisted with our
-              AI-powered toolkit.{" "}
-              <span className="text-accent font-semibold">All for just ₹99.</span>
+              Turn your ideas into real projects using only prompts. No coding. No stress.{" "}
+              <span className="text-accent font-semibold">
+                100% beginner-friendly. All for just ₹99.
+              </span>
             </motion.p>
 
             <motion.div
@@ -206,7 +207,7 @@ export default function Hero() {
                 whileTap={{ scale: 0.95 }}
                 className="bg-primary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-shadow text-sm sm:text-base"
               >
-                Get Started for ₹99 →
+                Start for ₹99 →
               </motion.button>
 
               <motion.button
@@ -214,7 +215,7 @@ export default function Hero() {
                 whileTap={{ scale: 0.95 }}
                 className="border-2 border-primary text-primary px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:bg-primary hover:text-white transition-all text-sm sm:text-base"
               >
-                Explore Features
+                See What You'll Learn
               </motion.button>
             </motion.div>
           </motion.div>

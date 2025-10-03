@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
 const steps = [
@@ -9,21 +10,21 @@ const steps = [
     num: "1",
     icon: "💳",
     title: "Pay ₹99",
-    text: "One-time payment, no hidden charges",
+    text: "One-time payment, lifetime access",
     color: "from-primary to-primary/80",
   },
   {
     num: "2",
     icon: "⚡",
-    title: "Instant Access",
-    text: "Get immediate access to complete AI toolkit",
+    title: "Get Instant Access",
+    text: "Start learning vibe coding today with ready-to-use prompts",
     color: "from-accent to-accent/80",
   },
   {
     num: "3",
-    icon: "🎯",
-    title: "Ace Your Placement",
-    text: "Learn, practice, and land your dream job",
+    icon: "🚀",
+    title: "Build Without Coding",
+    text: "Create websites, apps, and automations — even if you've never coded before",
     color: "from-success/70 to-success/50",
   },
 ];
@@ -31,6 +32,12 @@ const steps = [
 export default function HowItWorks() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const router = useRouter();
+
+  const handleSignUp = () => {
+    router.push("/signup");
+  };
 
   return (
     <section className="py-16 sm:py-24 bg-white relative overflow-hidden">
@@ -52,11 +59,13 @@ export default function HowItWorks() {
             transition={{ duration: 0.5 }}
             className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-4"
           >
-            Simple Process
+            👉 How Vibe Coding Works
           </motion.span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">How It Works</h2>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">
+            Simple 3-Step Process
+          </h2>
           <p className="mt-4 text-primary/70 max-w-2xl mx-auto text-base sm:text-lg">
-            Get started in minutes with our simple three-step process
+            Get started in minutes with our simple 3-step process
           </p>
         </motion.div>
 
@@ -205,13 +214,14 @@ export default function HowItWorks() {
           className="text-center mt-12 sm:mt-16"
         >
           <motion.button
+            onClick={handleSignUp}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="bg-gradient-to-r from-primary to-primary/90 text-white px-10 py-5 
               rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all 
               inline-flex items-center gap-3"
           >
-            <span>Start Your Journey Now</span>
+            <span>Start Vibe Coding Today for Just ₹99</span>
             <motion.span
               animate={{ x: [0, 5, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
@@ -222,8 +232,8 @@ export default function HowItWorks() {
           </motion.button>
 
           <p className="mt-4 text-sm text-primary/60">
-            Join <span className="font-bold text-accent">10,000+</span> students who've already
-            started
+            Join <span className="font-bold text-accent">10,000+</span> beginners already building
+            with AI
           </p>
         </motion.div>
       </div>

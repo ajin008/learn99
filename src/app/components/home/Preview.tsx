@@ -2,35 +2,45 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
 const previews = [
   {
-    id: "resume",
-    icon: "📄",
-    title: "Resume Templates",
-    subtitle: "Professional & ATS-Friendly",
-    features: ["10+ Templates", "AI Suggestions", "One-Click Export"],
+    id: "website",
+    icon: "🌐",
+    title: "Website Builder",
+    subtitle: "Create a personal website in minutes",
+    features: ["AI-generated code", "One-click deploy on Vercel", "Mobile responsive"],
     color: "from-primary/10 to-primary/5",
     accentColor: "text-primary",
   },
   {
-    id: "interview",
-    icon: "🎤",
-    title: "Mock Interviews",
-    subtitle: "HR + Technical Practice",
-    features: ["Real Questions", "AI Feedback", "Voice Practice"],
+    id: "apps",
+    icon: "📱",
+    title: "No-Code Apps",
+    subtitle: "Build simple apps like to-do lists, portfolios",
+    features: ["Learn AI prompt workflows", "Debug with one command", "Ready-to-use templates"],
     color: "from-accent/10 to-accent/5",
     accentColor: "text-accent",
   },
   {
-    id: "aptitude",
-    icon: "🧠",
-    title: "Aptitude Tests",
-    subtitle: "With Step-by-Step Solutions",
-    features: ["500+ Questions", "Video Explanations", "Time Tracking"],
+    id: "automations",
+    icon: "⚡",
+    title: "Automations",
+    subtitle: "Connect Google Sheets, Gmail, Notion with AI",
+    features: ["Automate daily tasks", "Save hours every week", "No coding required"],
     color: "from-success/30 to-success/10",
     accentColor: "text-success",
+  },
+  {
+    id: "prompts",
+    icon: "🎁",
+    title: "Prompt Library",
+    subtitle: "50+ copy-paste prompts",
+    features: ["Organized by category", "Lifetime updates", "Beginner friendly"],
+    color: "from-purple-500/10 to-purple-500/5",
+    accentColor: "text-purple-600",
   },
 ];
 
@@ -38,6 +48,11 @@ export default function Preview() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [activeTab, setActiveTab] = useState(0);
+
+  const router = useRouter();
+  const handleSignUp = () => {
+    router.push("/signup");
+  };
 
   return (
     <section className="py-16 sm:py-24 bg-background relative overflow-hidden">
@@ -59,13 +74,13 @@ export default function Preview() {
             transition={{ duration: 0.5 }}
             className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-4"
           >
-            Sneak Peek
+            👉 See What You'll Learn Inside
           </motion.span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">
-            See What's Inside
+            Hands-On Projects
           </h2>
           <p className="mt-4 text-primary/70 max-w-2xl mx-auto text-base sm:text-lg">
-            Explore the tools that will transform your placement preparation
+            Explore the hands-on projects and prompts included in your vibe coding journey
           </p>
         </motion.div>
 
@@ -74,7 +89,7 @@ export default function Preview() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="grid gap-6 sm:gap-8 grid-cols-1 md:grid-cols-3 mb-12"
+          className="grid gap-6 sm:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-12"
         >
           {previews.map((preview, index) => (
             <motion.div
@@ -234,6 +249,7 @@ export default function Preview() {
 
               {/* CTA */}
               <motion.button
+                onClick={handleSignUp}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="mt-8 bg-primary text-white px-8 py-4 rounded-lg font-semibold 
@@ -253,7 +269,9 @@ export default function Preview() {
           transition={{ delay: 1.2, duration: 0.6 }}
           className="text-center mt-8 text-sm text-primary/60"
         >
-          <p>✨ And many more features included in the complete package</p>
+          <p>
+            Build websites, apps, and automations with ready-made prompts — all beginner-friendly.
+          </p>
         </motion.div>
       </div>
     </section>

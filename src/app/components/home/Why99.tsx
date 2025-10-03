@@ -2,34 +2,40 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
 const benefits = [
   {
-    icon: "💰",
+    icon: "💳",
     label: "One-Time Payment",
-    desc: "No subscriptions",
+    desc: "No subscriptions, no hidden fees",
   },
   {
     icon: "♾️",
     label: "Lifetime Access",
-    desc: "Use it forever",
+    desc: "Learn at your own pace, forever",
   },
   {
-    icon: "🇮🇳",
-    label: "Made for India",
-    desc: "Local job market",
+    icon: "🙌",
+    label: "Made for Beginners",
+    desc: "Zero coding required — anyone can start",
   },
   {
     icon: "⚡",
     label: "Instant Access",
-    desc: "Start immediately",
+    desc: "Get started today, build your first project in 15 mins",
   },
 ];
 
 export default function Why99() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const router = useRouter();
+  const handleSignUp = () => {
+    router.push("/signup");
+  };
 
   return (
     <section className="py-16 sm:py-24 bg-white relative overflow-hidden">
@@ -69,7 +75,7 @@ export default function Why99() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-6">
-            Why Just ₹99?
+            👉 Why This Course Is Just ₹99
           </h2>
         </motion.div>
 
@@ -164,7 +170,7 @@ export default function Why99() {
               className="text-center mt-8"
             >
               <span className="inline-block bg-accent text-white px-6 py-2 rounded-full text-sm font-semibold shadow-lg">
-                🔥 Limited Time Offer
+                🔥 Special Launch Offer — Limited Time
               </span>
             </motion.div>
           </div>
@@ -203,12 +209,12 @@ export default function Why99() {
           className="max-w-3xl mx-auto text-center"
         >
           <p className="text-base sm:text-lg text-primary/70 leading-relaxed">
-            We believe every Indian student deserves access to quality placement preparation without
-            breaking the bank. That's why we're offering our complete AI-powered toolkit at an
-            unbeatable price.
+            We believe anyone should be able to turn their ideas into apps — without needing to
+            code. That's why we're offering this Vibe Coding course at an unbeatable ₹99.
           </p>
 
           <motion.div
+            onClick={handleSignUp}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 1, duration: 0.5 }}
@@ -220,12 +226,13 @@ export default function Why99() {
               className="w-full sm:w-auto bg-primary text-white px-8 py-4 rounded-lg font-semibold 
                 shadow-lg hover:shadow-xl transition-all inline-flex items-center justify-center gap-2"
             >
-              Claim Your Spot for ₹99
-              <span className="text-xl">🚀</span>
+              Start Vibe Coding for ₹99
+              <span className="text-xl">→</span>
             </motion.button>
 
             <div className="text-sm text-primary/60">
-              <span className="font-semibold text-accent">2,847</span> students joined today
+              <span className="font-semibold text-accent">2,847 beginners</span> already joined
+              today
             </div>
           </motion.div>
         </motion.div>

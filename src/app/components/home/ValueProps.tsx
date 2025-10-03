@@ -4,30 +4,31 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { easeOut } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 const features = [
   {
-    title: "AI Resume Builder",
-    desc: "Get job-ready resumes in minutes.",
-    icon: "📄",
+    title: "AI Website Builder 🌐",
+    desc: "Make your first personal website in 10 minutes — just by prompting AI.",
+    icon: "🌐",
     gradient: "from-primary/10 to-accent/10",
   },
   {
-    title: "Mock Interviews",
-    desc: "Practice HR + Technical Q&As with AI.",
-    icon: "🎤",
+    title: "No-Code App Projects 📱",
+    desc: "Turn ideas into working apps like to-do lists, portfolio sites, or expense trackers.",
+    icon: "📱",
     gradient: "from-accent/10 to-success/30",
   },
   {
-    title: "Aptitude & GD Prep",
-    desc: "AI explains problems + suggests answers.",
-    icon: "🧠",
+    title: "Everyday Automations ⚡",
+    desc: "Learn to connect tools (Google Sheets, Email, Notion) with AI for time-saving hacks.",
+    icon: "⚡",
     gradient: "from-success/30 to-primary/10",
   },
   {
-    title: "Placement Toolkit",
-    desc: "Templates for resumes, notes, GD scripts.",
-    icon: "🚀",
+    title: "50+ Ready Prompts 🎁",
+    desc: "Copy-paste prompts for websites, apps, automations, and debugging. Just vibe and build.",
+    icon: "🎁",
     gradient: "from-accent/10 to-primary/10",
   },
 ];
@@ -59,6 +60,12 @@ export default function ValueProps() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
+  const router = useRouter();
+
+  const handleSignUp = () => {
+    router.push("/signup");
+  };
+
   return (
     <section className="py-16 sm:py-24 bg-background relative overflow-hidden">
       {/* Background decoration */}
@@ -79,13 +86,13 @@ export default function ValueProps() {
             transition={{ duration: 0.5 }}
             className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-4"
           >
-            Everything You Need
+            👉 What You'll Build With Vibe Coding
           </motion.span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">
-            What You'll Get
+            Create Without Code
           </h2>
           <p className="mt-4 text-primary/70 max-w-2xl mx-auto text-base sm:text-lg">
-            Comprehensive AI-powered tools to accelerate your placement journey
+            AI + Prompts = Your ideas turned into real apps & automations — no coding required.
           </p>
         </motion.div>
 
@@ -172,9 +179,11 @@ export default function ValueProps() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.8, duration: 0.6 }}
           className="text-center mt-12 sm:mt-16"
+          onClick={handleSignUp}
         >
           <p className="text-primary/70 mb-6 text-sm sm:text-base">
-            All these features for just <span className="text-accent font-bold text-xl">₹99</span>
+            Learn Vibe Coding for Just <span className="text-accent font-bold text-xl">₹99</span> —
+            Lifetime Access, Beginner Friendly
           </p>
           <motion.button
             whileHover={{ scale: 1.05 }}
@@ -182,7 +191,7 @@ export default function ValueProps() {
             className="bg-primary text-white px-8 py-4 rounded-lg font-semibold 
               shadow-lg hover:shadow-xl transition-all inline-flex items-center gap-2"
           >
-            Start Your Journey
+            Start Vibe Coding
             <span className="text-xl">→</span>
           </motion.button>
         </motion.div>
