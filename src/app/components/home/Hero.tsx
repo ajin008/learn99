@@ -94,7 +94,7 @@ export default function Hero() {
               {/* Avatar Image */}
               <div className="relative z-10">
                 <Image
-                  src="/3d_1.png"
+                  src="/3d_3.png"
                   alt="AI Career Assistant"
                   width={500}
                   height={500}
@@ -216,44 +216,6 @@ export default function Hero() {
               >
                 Explore Features
               </motion.button>
-            </motion.div>
-
-            {/* Stats - Compact on mobile */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.7, duration: 0.6 }}
-              className="grid grid-cols-3 gap-4 sm:gap-6 md:gap-8 pt-6 sm:pt-8"
-            >
-              <div className="text-center md:text-left">
-                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-accent">10k+</div>
-                <div className="text-xs sm:text-sm text-primary/60">Students Placed</div>
-              </div>
-              <div className="text-center md:text-left">
-                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-accent">95%</div>
-                <div className="text-xs sm:text-sm text-primary/60">Success Rate</div>
-              </div>
-              <div className="text-center md:text-left">
-                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-accent">500+</div>
-                <div className="text-xs sm:text-sm text-primary/60">Companies</div>
-              </div>
-            </motion.div>
-
-            {/* Trust badges - mobile friendly */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-              className="flex flex-wrap justify-center md:justify-start gap-3 sm:gap-4 pt-4"
-            >
-              <div className="flex items-center gap-1.5 bg-white/50 px-3 py-1.5 rounded-full text-xs sm:text-sm">
-                <span className="text-green-500">✓</span>
-                <span className="font-medium">Instant Access</span>
-              </div>
-              <div className="flex items-center gap-1.5 bg-white/50 px-3 py-1.5 rounded-full text-xs sm:text-sm">
-                <span className="text-green-500">✓</span>
-                <span className="font-medium">Money Back</span>
-              </div>
             </motion.div>
           </motion.div>
         </div>
