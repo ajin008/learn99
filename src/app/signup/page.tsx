@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function SignupPage() {
@@ -9,9 +10,11 @@ export default function SignupPage() {
     email: "",
   });
 
+  const router = useRouter();
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    router.push("/dashboard");
     // Add your signup logic here
   };
 
@@ -174,7 +177,7 @@ export default function SignupPage() {
                 whileTap={{ scale: 0.98 }}
                 className="w-full bg-primary text-white px-8 py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-shadow text-base sm:text-lg relative overflow-hidden group"
               >
-                <span className="relative z-10">Get Instant Access – ₹99 →</span>
+                <span className="relative z-10">Get Instant Access – ₹99</span>
                 <motion.div
                   className="absolute inset-0 bg-accent/20"
                   initial={{ x: "-100%" }}
