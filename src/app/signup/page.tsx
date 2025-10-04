@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { createOrderAndPay } from "../lib/payments/razorpay";
+import { createOrderAndPay } from "../../lib/payments/razorpay";
 import { toast } from "sonner";
 import { Loader } from "lucide-react";
 

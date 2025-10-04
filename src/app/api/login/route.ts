@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseServer } from "@/app/lib/config/supabaseServer";
+import { supabaseServer } from "@/lib/config/supabaseServer";
 import { createHash } from "crypto";
 
 // Helper: hash same way as signup
