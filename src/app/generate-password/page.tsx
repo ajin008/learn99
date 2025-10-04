@@ -6,8 +6,9 @@ import { toast } from "sonner";
 
 export default function GeneratePasswordPage() {
   const searchParams = useSearchParams();
-  const password = searchParams.get("pass") || "N/A";
   const router = useRouter();
+
+  const password = searchParams.get("pass") || "N/A";
 
   const copyToClipboard = async () => {
     if (password) {
@@ -30,6 +31,7 @@ export default function GeneratePasswordPage() {
           has been created. Use this password to log in securely.
         </p>
 
+        {/* Password */}
         <div className="bg-gray-100 rounded-lg p-4 mb-6 flex items-center justify-between">
           <span className="font-mono text-gray-800">{password}</span>
           <button
