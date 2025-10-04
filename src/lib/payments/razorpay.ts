@@ -1,6 +1,7 @@
 "use client";
 
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { toast } from "sonner";
 
 function generatePassword(length: number = 6): string {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -18,7 +19,25 @@ type PayProps = {
 };
 
 export async function createOrderAndPay({ username, email, router }: PayProps) {
-  // 1. Call backend API to create Razorpay order
+  // ✅ 1. Check if email already exists BEFORE payment
+  const checkRes = await fetch("/api/check-user", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
+
+  const checkData = await checkRes.json();
+  if (!checkRes.ok) {
+    toast.error(checkData.error || "Something went wrong");
+    return; // ❌ stop flow
+  }
+
+  if (checkData.exists) {
+    toast.error("This email is already registered. Please login.");
+    return; // ❌ stop flow
+  }
+
+  // ✅ 2. Proceed with Razorpay order creation
   const res = await fetch("/api/payment/order", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -28,6 +47,7 @@ export async function createOrderAndPay({ username, email, router }: PayProps) {
   if (!res.ok) throw new Error("Failed to create order");
   const { orderId } = await res.json();
 
+  // ✅ 3. Setup Razorpay
   const options: any = {
     key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
     amount: 9900,
@@ -35,13 +55,9 @@ export async function createOrderAndPay({ username, email, router }: PayProps) {
     name: "Learn99",
     description: "Vibe Coding for Non-Techies",
     order_id: orderId,
-    handler: async function (response: any) {
-      console.log("Payment success:", response);
-
-      // ✅ Generate password here
+    handler: async function () {
       const password = generatePassword(6);
 
-      // ✅ Call signup with password included
       try {
         const signupRes = await fetch("/api/signup", {
           method: "POST",
@@ -52,20 +68,18 @@ export async function createOrderAndPay({ username, email, router }: PayProps) {
         if (!signupRes.ok) {
           const err = await signupRes.json();
           console.error("Signup failed:", err.error);
+          toast.error(err.error || "Signup failed");
         } else {
-          console.log("User stored successfully");
+          toast.success("Signup successful 🎉");
         }
       } catch (err) {
         console.error("Error storing user:", err);
+        toast.error("Could not save user, try again.");
       }
 
-      // ✅ Pass password to generate-password page
       router.push(`/generate-password?pass=${password}`);
     },
-    prefill: {
-      email,
-      name: username,
-    },
+    prefill: { email, name: username },
     theme: { color: "#1a237e" },
   };
 
