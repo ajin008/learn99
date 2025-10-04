@@ -3,6 +3,9 @@
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { createOrderAndPay } from "../lib/payments/razorpay";
+import { toast } from "sonner";
+import { Loader } from "lucide-react";
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -12,10 +15,24 @@ export default function SignupPage() {
 
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push("/dashboard");
-    // Add your signup logic here
+    setLoading(true);
+
+    try {
+      await createOrderAndPay({
+        username: formData.username,
+        email: formData.email,
+        router,
+      });
+    } catch (error) {
+      console.error("Payment failed:", error);
+      toast.error("Payment could not be completed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -172,18 +189,32 @@ export default function SignupPage() {
               transition={{ delay: 0.6, duration: 0.6 }}
             >
               <motion.button
+                disabled={loading}
                 type="submit"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full bg-primary text-white px-8 py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-shadow text-base sm:text-lg relative overflow-hidden group"
+                whileHover={{ scale: loading ? 1 : 1.02 }}
+                whileTap={{ scale: loading ? 1 : 0.98 }}
+                className={`w-full px-8 py-4 rounded-lg font-semibold shadow-lg transition-all text-base sm:text-lg relative overflow-hidden group ${
+                  loading ? "bg-primary/60 cursor-not-allowed" : "bg-primary hover:shadow-xl"
+                } text-white`}
               >
-                <span className="relative z-10">Get Instant Access – ₹99</span>
-                <motion.div
-                  className="absolute inset-0 bg-accent/20"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: "100%" }}
-                  transition={{ duration: 0.5 }}
-                />
+                <span className="relative z-10 flex items-center justify-center gap-2">
+                  {loading ? (
+                    <>
+                      <Loader className="h-5 w-5 animate-spin" />
+                      <span>Processing...</span>
+                    </>
+                  ) : (
+                    "Get Instant Access – ₹99"
+                  )}
+                </span>
+                {!loading && (
+                  <motion.div
+                    className="absolute inset-0 bg-accent/20"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: "100%" }}
+                    transition={{ duration: 0.5 }}
+                  />
+                )}
               </motion.button>
             </motion.div>
 
