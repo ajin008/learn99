@@ -56,6 +56,7 @@ export async function createOrderAndPay({ username, email, router }: PayProps) {
     description: "Vibe Coding for Non-Techies",
     order_id: orderId,
     handler: async function () {
+      toast.success("Signup successful 🎉");
       const password = generatePassword(6);
 
       try {
@@ -69,8 +70,6 @@ export async function createOrderAndPay({ username, email, router }: PayProps) {
           const err = await signupRes.json();
           console.error("Signup failed:", err.error);
           toast.error(err.error || "Signup failed");
-        } else {
-          toast.success("Signup successful 🎉");
         }
       } catch (err) {
         console.error("Error storing user:", err);
