@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Loader, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
+import { verifyLogin } from "@/utils/loginUtils";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -22,16 +23,10 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const res = await verifyLogin(formData);
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        toast.error(data.error || "Login failed");
+      if (!res) {
+        toast.error("Login failed");
       } else {
         toast.success("Login successful 🎉");
         router.push("/dashboard");
