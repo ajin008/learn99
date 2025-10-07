@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { logoutUser } from "@/utils/auth";
 import { fetchUser } from "@/utils/DashboardUtils";
 import { HeaderProps } from "@/types/types";
+import { ProfileModal } from "./ProfileModal";
 
 export const Header = ({ email }: HeaderProps) => {
   const [open, setOpen] = useState(false);
@@ -15,10 +16,16 @@ export const Header = ({ email }: HeaderProps) => {
     name: "Loading...",
     email,
   });
+  const [profileModalOpen, setProfileModalOpen] = useState(false);
 
   const handleLogout = async () => {
     const success = await logoutUser();
     if (success) window.location.href = "/login";
+  };
+
+  const handleProfileClick = () => {
+    setProfileModalOpen(true);
+    setMobileMenuOpen(false);
   };
 
   useEffect(() => {
@@ -145,7 +152,10 @@ export const Header = ({ email }: HeaderProps) => {
 
                     {/* Menu Items */}
                     <div className="p-1">
-                      <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-primary/5 hover:text-primary">
+                      <button
+                        onClick={handleProfileClick}
+                        className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-primary/5 hover:text-primary"
+                      >
                         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
                           <User className="h-4 w-4 text-primary" />
                         </div>
@@ -239,7 +249,10 @@ export const Header = ({ email }: HeaderProps) => {
                   </span>
                 </button>
 
-                <button className="mb-2 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-primary/5 hover:text-primary">
+                <button
+                  onClick={handleProfileClick}
+                  className="mb-2 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-primary/5 hover:text-primary"
+                >
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
                     <User className="h-5 w-5 text-primary" />
                   </div>
@@ -274,6 +287,13 @@ export const Header = ({ email }: HeaderProps) => {
           </motion.div>
         )}
       </AnimatePresence>
+      {/* Profile Modal */}
+      <ProfileModal
+        isOpen={profileModalOpen}
+        onClose={() => setProfileModalOpen(false)}
+        user={user}
+        onUserUpdate={setUser}
+      />
     </>
   );
 };

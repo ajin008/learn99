@@ -24,3 +24,35 @@ export const fetchUser = async (
     return null;
   }
 };
+
+export async function updateUserProfile({
+  email,
+  username,
+  password,
+}: {
+  email: string;
+  username?: string;
+  password?: string;
+}) {
+  try {
+    const res = await fetch("/api/updateUser", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, username, password }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      toast.error(data.error || "Failed to update profile");
+      return null;
+    }
+
+    toast.success("Profile updated successfully 🎉");
+    return data.user;
+  } catch (err) {
+    console.error("Update error", err);
+    toast.error("Something went wrong while updating");
+    return null;
+  }
+}
