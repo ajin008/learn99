@@ -26,7 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Toaster />
+          <Toaster position="top-right" />
           {children}
         </div>
         <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="afterInteractive" />
