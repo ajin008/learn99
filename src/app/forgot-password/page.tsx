@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, Mail, Search, Copy, Check, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
+import { retrieveAcc } from "@/utils/auth";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -17,24 +18,14 @@ export default function ForgotPassword() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate API call to retrieve password from database
     try {
-      // Replace this with your actual API call
-      const response = await fetch("/api/auth/get-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
+      const success = await retrieveAcc(email);
 
-      const data = await response.json();
-
-      if (response.ok) {
-        setRetrievedPassword(data.password);
+      if (success) {
+        setRetrievedPassword(success.password);
         setIsSubmitted(true);
       } else {
-        alert(data.error || "Failed to retrieve password");
+        alert(success.error || "Failed to retrieve password");
       }
     } catch (error) {
       // Fallback to mock data for demo

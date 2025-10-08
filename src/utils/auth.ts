@@ -34,3 +34,22 @@ export async function deleteAcc(email: string): Promise<boolean> {
     return false;
   }
 }
+
+export async function retrieveAcc(email: string) {
+  try {
+    const res = await fetch("/api/get-password", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    if (!res.ok) throw new Error("failed to retrieve ");
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
