@@ -90,7 +90,7 @@ export const ProfileModal = ({ isOpen, onClose, user, onUserUpdate }: ProfileMod
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header with gradient accent */}
-            <div className="relative h-2 bg-gradient-to-r from-primary via-accent to-primary">
+            <div className="relative h-2 bg-gradient-to-r from-primary  to-primary">
               <motion.div
                 className="absolute inset-0 bg-white/30"
                 animate={{ x: ["-100%", "100%"] }}

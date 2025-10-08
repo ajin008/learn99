@@ -45,11 +45,15 @@ export async function retrieveAcc(email: string) {
       body: JSON.stringify({ email }),
     });
 
-    if (!res.ok) throw new Error("failed to retrieve ");
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.error || "Failed to retrieve password");
+    }
 
     const data = await res.json();
     return data;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 }
