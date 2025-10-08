@@ -7,9 +7,11 @@ import { logoutUser } from "@/utils/auth";
 import { fetchUser } from "@/utils/DashboardUtils";
 import { HeaderProps } from "@/types/types";
 import { ProfileModal } from "./ProfileModal";
+import { SettingsModal } from "./SettingsModal";
 
 export const Header = ({ email }: HeaderProps) => {
   const [open, setOpen] = useState(false);
+  const [settingsModalOpen, setSettingsModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [user, setUser] = useState<{ name: string; email: string }>({
@@ -26,6 +28,10 @@ export const Header = ({ email }: HeaderProps) => {
   const handleProfileClick = () => {
     setProfileModalOpen(true);
     setMobileMenuOpen(false);
+  };
+
+  const handleSettingClick = () => {
+    setSettingsModalOpen(true);
   };
 
   useEffect(() => {
@@ -162,7 +168,10 @@ export const Header = ({ email }: HeaderProps) => {
                         <span>View Profile</span>
                       </button>
 
-                      <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-primary/5 hover:text-primary">
+                      <button
+                        onClick={handleSettingClick}
+                        className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-primary/5 hover:text-primary"
+                      >
                         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
                           <Settings className="h-4 w-4 text-primary" />
                         </div>
@@ -259,7 +268,10 @@ export const Header = ({ email }: HeaderProps) => {
                   <span>View Profile</span>
                 </button>
 
-                <button className="mb-2 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-primary/5 hover:text-primary">
+                <button
+                  onClick={handleSettingClick}
+                  className="mb-2 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-primary/5 hover:text-primary"
+                >
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
                     <Settings className="h-5 w-5 text-primary" />
                   </div>
@@ -293,6 +305,12 @@ export const Header = ({ email }: HeaderProps) => {
         onClose={() => setProfileModalOpen(false)}
         user={user}
         onUserUpdate={setUser}
+      />
+
+      <SettingsModal
+        isOpen={settingsModalOpen}
+        onClose={() => setSettingsModalOpen(false)}
+        email={user.email}
       />
     </>
   );

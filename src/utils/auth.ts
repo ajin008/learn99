@@ -17,3 +17,20 @@ export async function logoutUser() {
     return false;
   }
 }
+
+export async function deleteAcc(email: string): Promise<boolean> {
+  try {
+    const res = await fetch("/api/deleteUser", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+
+    if (!res.ok) throw new Error("Failed to delete account");
+
+    return true;
+  } catch (error) {
+    console.error("DeleteAcc error:", error);
+    return false;
+  }
+}
