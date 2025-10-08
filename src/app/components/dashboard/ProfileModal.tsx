@@ -12,16 +12,16 @@ export const ProfileModal = ({ isOpen, onClose, user, onUserUpdate }: ProfileMod
   const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
-    username: user?.name || "Loading...",
-    email: user?.email || "",
+    username: user?.name ?? "",
+    email: user?.email ?? "",
     password: "",
   });
 
   useEffect(() => {
     if (user) {
       setFormData({
-        username: user.name || "",
-        email: user.email || "",
+        username: user.name ?? "",
+        email: user.email ?? "",
         password: "",
       });
     }
@@ -33,6 +33,7 @@ export const ProfileModal = ({ isOpen, onClose, user, onUserUpdate }: ProfileMod
 
   const handleSave = async () => {
     setLoading(true);
+
     const updatedUser = await updateUserProfile({
       email: formData.email,
       username: formData.username,
@@ -41,11 +42,32 @@ export const ProfileModal = ({ isOpen, onClose, user, onUserUpdate }: ProfileMod
 
     if (updatedUser) {
       setIsEditing(false);
-      setFormData({ username: updatedUser.name, email: updatedUser.email, password: "" });
-      onUserUpdate?.(updatedUser);
+
+      // update modal state
+      setFormData({
+        username: updatedUser.username,
+        email: updatedUser.email,
+        password: "",
+      });
+
+      // propagate to Header
+      onUserUpdate?.({
+        name: updatedUser.username,
+        email: updatedUser.email,
+      });
     }
 
     setLoading(false);
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false);
+    setFormData({
+      username: user?.name ?? "",
+      email: user?.email ?? "",
+      password: "",
+    });
+    setShowPassword(false);
   };
 
   return (
@@ -69,16 +91,19 @@ export const ProfileModal = ({ isOpen, onClose, user, onUserUpdate }: ProfileMod
           >
             {/* Header with gradient accent */}
             <div className="relative h-2 bg-gradient-to-r from-primary via-accent to-primary">
-              <div className="absolute inset-0 animate-pulse bg-white/30" />
+              <motion.div
+                className="absolute inset-0 bg-white/30"
+                animate={{ x: ["-100%", "100%"] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              />
             </div>
 
             {/* Modal Header */}
             <div className="flex items-center justify-between border-b border-gray-100 bg-gradient-to-br from-primary/5 to-accent/5 px-6 py-5 sm:px-8 sm:py-6">
               <div className="flex items-center gap-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/80 text-lg font-bold text-white shadow-sm sm:h-14 sm:w-14">
-                  {formData.username ? formData.username.charAt(0) : "?"}
+                  {formData.username?.charAt(0) || "?"}
                 </div>
-
                 <div>
                   <h2 className="text-xl font-bold text-primary sm:text-2xl">Profile Settings</h2>
                   <p className="text-sm text-gray-600">Manage your account information</p>
@@ -86,7 +111,7 @@ export const ProfileModal = ({ isOpen, onClose, user, onUserUpdate }: ProfileMod
               </div>
               <button
                 onClick={onClose}
-                className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/60 text-gray-600 transition-colors hover:bg-white hover:text-primary"
+                className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/60 text-gray-600 transition-all hover:bg-white hover:text-primary hover:shadow-sm"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -115,7 +140,7 @@ export const ProfileModal = ({ isOpen, onClose, user, onUserUpdate }: ProfileMod
                       className={`w-full rounded-xl border-2 bg-white px-4 py-3.5 text-primary transition-all placeholder:text-gray-400 focus:outline-none ${
                         isEditing
                           ? "border-gray-200 focus:border-primary focus:ring-4 focus:ring-primary/10"
-                          : "border-gray-100 bg-gray-50"
+                          : "border-gray-100 bg-gray-50 cursor-not-allowed"
                       }`}
                       placeholder="Enter your username"
                     />
@@ -123,6 +148,21 @@ export const ProfileModal = ({ isOpen, onClose, user, onUserUpdate }: ProfileMod
                       <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
                         <Lock className="h-4 w-4" />
                       </div>
+                    )}
+                    {isEditing && formData.username && (
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-green-500"
+                      >
+                        <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                          <path
+                            fillRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </motion.div>
                     )}
                   </div>
                 </div>
@@ -141,13 +181,13 @@ export const ProfileModal = ({ isOpen, onClose, user, onUserUpdate }: ProfileMod
                       type="email"
                       id="email"
                       name="email"
-                      value={formData.email}
+                      value={formData.email ?? ""}
                       onChange={handleChange}
                       disabled={!isEditing}
                       className={`w-full rounded-xl border-2 bg-white px-4 py-3.5 text-primary transition-all placeholder:text-gray-400 focus:outline-none ${
                         isEditing
                           ? "border-gray-200 focus:border-primary focus:ring-4 focus:ring-primary/10"
-                          : "border-gray-100 bg-gray-50"
+                          : "border-gray-100 bg-gray-50 cursor-not-allowed"
                       }`}
                       placeholder="Enter your email"
                     />
@@ -155,6 +195,21 @@ export const ProfileModal = ({ isOpen, onClose, user, onUserUpdate }: ProfileMod
                       <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
                         <Lock className="h-4 w-4" />
                       </div>
+                    )}
+                    {isEditing && formData.email && (
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-green-500"
+                      >
+                        <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                          <path
+                            fillRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </motion.div>
                     )}
                   </div>
                 </div>
@@ -178,13 +233,13 @@ export const ProfileModal = ({ isOpen, onClose, user, onUserUpdate }: ProfileMod
                       type={showPassword ? "text" : "password"}
                       id="password"
                       name="password"
-                      value={formData.password}
+                      value={formData.password ?? ""}
                       onChange={handleChange}
                       disabled={!isEditing}
                       className={`w-full rounded-xl border-2 bg-white px-4 py-3.5 pr-12 text-primary transition-all placeholder:text-gray-400 focus:outline-none ${
                         isEditing
                           ? "border-gray-200 focus:border-primary focus:ring-4 focus:ring-primary/10"
-                          : "border-gray-100 bg-gray-50"
+                          : "border-gray-100 bg-gray-50 cursor-not-allowed"
                       }`}
                       placeholder={isEditing ? "Enter new password" : "••••••••"}
                     />
@@ -252,14 +307,7 @@ export const ProfileModal = ({ isOpen, onClose, user, onUserUpdate }: ProfileMod
                 ) : (
                   <>
                     <button
-                      onClick={() => {
-                        setIsEditing(false);
-                        setFormData({
-                          username: user.name || "",
-                          email: user.email || "",
-                          password: "",
-                        });
-                      }}
+                      onClick={handleCancel}
                       disabled={loading}
                       className="order-2 rounded-xl border-2 border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-gray-700 transition-all hover:border-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 sm:order-1"
                     >

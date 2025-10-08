@@ -77,7 +77,7 @@ export const Header = ({ email }: HeaderProps) => {
             </div>
             <h1 className="mb-1 text-xl font-bold leading-tight text-primary sm:mb-2 sm:text-2xl md:text-3xl lg:text-4xl">
               Welcome back,
-              <br className="sm:hidden" /> {user.name.split(" ")[0]}! 👋
+              <br className="sm:hidden" /> {user?.name?.split(" ")[0] || "User"}! 👋
             </h1>
             <p className="text-xs text-gray-600 sm:text-sm lg:text-base">
               <span className="hidden sm:inline">Continue your journey in </span>
@@ -119,7 +119,7 @@ export const Header = ({ email }: HeaderProps) => {
               >
                 {/* Avatar */}
                 <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80 text-sm font-bold text-white shadow-sm">
-                  {user.name.charAt(0)}
+                  {user?.name?.charAt(0) || "?"}
                 </div>
 
                 {/* User Info */}
