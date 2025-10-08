@@ -15,6 +15,7 @@ import {
   Zap,
   Briefcase,
   Wrench,
+  RotateCcw,
 } from "lucide-react";
 
 interface Lesson {
@@ -152,6 +153,16 @@ export const ModuleList = () => {
     setExpandedModule(expandedModule === moduleId ? null : moduleId);
   };
 
+  const handleModuleAction = (module: Module) => {
+    if (module.completed) {
+      // Handle re-learn action
+      console.log(`Re-learning module: ${module.title}`);
+    } else {
+      // Handle start/continue action
+      console.log(`Starting module: ${module.title}`);
+    }
+  };
+
   const completedCount = modules.filter((m) => m.completed).length;
 
   return (
@@ -180,6 +191,7 @@ export const ModuleList = () => {
         {modules.map((module, index) => {
           const isExpanded = expandedModule === module.id;
           const isActive = !module.completed && !module.locked;
+          const completedLessons = module.lessons.filter((l) => l.completed).length;
 
           return (
             <motion.div
@@ -225,6 +237,14 @@ export const ModuleList = () => {
                       </span>
                       <span className="text-xs text-gray-400">•</span>
                       <span className="text-xs text-gray-500">{module.duration}</span>
+                      {!module.locked && (
+                        <>
+                          <span className="text-xs text-gray-400">•</span>
+                          <span className="text-xs text-primary font-medium">
+                            {completedLessons}/{module.lessons.length} lessons
+                          </span>
+                        </>
+                      )}
                     </div>
                     <h3 className="mb-1 text-base font-bold text-gray-900 sm:text-lg">
                       {module.title}
@@ -238,7 +258,7 @@ export const ModuleList = () => {
                     {module.completed ? (
                       <span className="hidden items-center gap-1.5 rounded-full bg-success px-3 py-1.5 text-xs font-semibold text-green-900 sm:inline-flex">
                         <Check className="h-3.5 w-3.5" />
-                        Done
+                        Completed
                       </span>
                     ) : isActive ? (
                       <span className="hidden items-center gap-1.5 rounded-full bg-gradient-to-r from-accent/20 to-primary/20 px-3 py-1.5 text-xs font-semibold text-primary sm:inline-flex">
@@ -246,7 +266,7 @@ export const ModuleList = () => {
                           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
                           <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
                         </span>
-                        Active
+                        In Progress
                       </span>
                     ) : (
                       <span className="hidden items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-xs font-semibold text-gray-500 sm:inline-flex">
@@ -319,27 +339,31 @@ export const ModuleList = () => {
                                 {lesson.title}
                               </p>
                             </div>
-
-                            {/* Lesson Action */}
-                            {!lesson.completed && (
-                              <button className="flex-shrink-0 text-xs font-medium text-primary transition-colors hover:text-accent">
-                                Start
-                                <ChevronRight className="ml-0.5 inline h-3 w-3" />
-                              </button>
-                            )}
                           </motion.div>
                         ))}
                       </div>
 
                       {/* Module Action Button */}
-                      {!module.completed && (
-                        <button className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-primary to-primary/90 px-4 py-3 text-sm font-semibold text-white shadow-md transition-all hover:shadow-lg">
-                          <Play className="h-4 w-4" />
-                          {module.lessons.some((l) => l.completed)
-                            ? "Continue Module"
-                            : "Start Module"}
-                        </button>
-                      )}
+                      <button
+                        onClick={() => handleModuleAction(module)}
+                        className={`mt-4 flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white shadow-md transition-all hover:shadow-lg ${
+                          module.completed
+                            ? "bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800"
+                            : "bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary"
+                        }`}
+                      >
+                        {module.completed ? (
+                          <>
+                            <RotateCcw className="h-4 w-4" />
+                            Re-learn Module
+                          </>
+                        ) : (
+                          <>
+                            <Play className="h-4 w-4" />
+                            {completedLessons > 0 ? "Continue Module" : "Start Module"}
+                          </>
+                        )}
+                      </button>
                     </div>
                   </motion.div>
                 )}

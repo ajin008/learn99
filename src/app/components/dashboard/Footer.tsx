@@ -21,7 +21,7 @@ export const Footer = () => {
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80">
                 <span className="text-sm font-bold text-white">L</span>
               </div>
-              <span className="text-lg font-bold text-primary">Learn@99</span>
+              <span className="text-lg font-bold text-primary">Learn99</span>
             </div>
           </motion.div>
 
