@@ -119,7 +119,7 @@ export const ModuleList = ({ email }: { email: string }) => {
                     {isCompleted ? (
                       <span className="hidden items-center gap-1.5 rounded-full bg-success px-3 py-1.5 text-xs font-semibold text-green-900 sm:inline-flex">
                         <Check className="h-3.5 w-3.5" />
-                        Done
+                        completed
                       </span>
                     ) : isLocked ? (
                       <span className="hidden items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-xs font-semibold text-gray-500 sm:inline-flex">
@@ -190,8 +190,8 @@ export const ModuleList = ({ email }: { email: string }) => {
                         href={`/modules/${module.slug}`}
                         className={`flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold shadow-md transition-all hover:shadow-lg ${
                           isCompleted
-                            ? "bg-gradient-to-r from-green-600 to-green-500 text-white"
-                            : "bg-gradient-to-r from-primary to-primary/90 text-white"
+                            ? "bg-gradient-to-r from-accent to-accent/90 text-white"
+                            : "bg-gradient-to-r from-primary to-primary/85 text-white"
                         }`}
                       >
                         {isCompleted ? (
