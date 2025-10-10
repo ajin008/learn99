@@ -6,10 +6,15 @@ import { module1Lessons, module2Lessons } from "@/lib/lessons";
 import { vibeModules } from "@/lib/modules";
 import React from "react";
 
+type SlugParams = { slug: string };
 type Lesson = (typeof module1Lessons)[number];
-export default async function Page({ params }: { params: { slug: string } }) {
+
+export default async function Page({ params }: { params: Promise<SlugParams> }) {
+  const { slug } = await params;
   const email = await requireAuth();
-  const module = vibeModules.find((m) => m.slug === params.slug);
+
+  // ❌ previously: params.slug
+  const module = vibeModules.find((m) => m.slug === slug);
 
   let lessons: Lesson[] = [];
   if (module?.id === "module-1") lessons = module1Lessons;

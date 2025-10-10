@@ -1,4 +1,3 @@
-import { requireAuth } from "@/lib/auth/serverAuth";
 import { toast } from "sonner";
 
 export const fetchUser = async (
