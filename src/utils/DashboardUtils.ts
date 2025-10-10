@@ -1,3 +1,4 @@
+import { requireAuth } from "@/lib/auth/serverAuth";
 import { toast } from "sonner";
 
 export const fetchUser = async (
@@ -56,3 +57,82 @@ export async function updateUserProfile({
     return null;
   }
 }
+
+export async function getStudyMaterial(lessonId: string) {
+  try {
+    const res = await fetch("/api/getMaterial", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ lessonId }),
+      cache: "no-store",
+    });
+
+    const data = await res.json();
+
+    // if (!res.ok) throw new Error(data.error || "Failed to get materials");
+
+    return data;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
+export const markCompleted = async ({ moduleId, email }: { moduleId: string; email: string }) => {
+  try {
+    const res = await fetch("/api/markLesson", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ moduleId, email }),
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Failed to mark as completed");
+
+    return true;
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
+};
+
+export const checkIsCompleted = async ({
+  moduleId,
+  email,
+}: {
+  moduleId: string;
+  email: string;
+}) => {
+  try {
+    const res = await fetch("/api/isCompleted", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ moduleId, email }),
+    });
+
+    const data = await res.json();
+
+    return data.completed;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+};
+
+export const getCompletedModules = async (email: string) => {
+  try {
+    const res = await fetch("/api/getCompletedModules", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+      cache: "no-store",
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Failed to fetch completed modules");
+    return (data.completedModules ?? []) as string[];
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
+};

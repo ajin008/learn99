@@ -6,11 +6,12 @@ import { Footer } from "../components/dashboard/Footer";
 
 export default async function DashboardPage() {
   const email = await requireAuth();
+
   return (
     <main className="min-h-screen bg-background p-4 sm:p-6">
       <Header email={email} />
-      <ProgressCard completedModules={3} totalModules={6} />
-      <ModuleList />
+      <ProgressCard email={email} />
+      <ModuleList email={email} />
       <Footer />
     </main>
   );

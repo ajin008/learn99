@@ -8,6 +8,7 @@ import { fetchUser } from "@/utils/DashboardUtils";
 import { HeaderProps } from "@/types/types";
 import { ProfileModal } from "./ProfileModal";
 import { SettingsModal } from "./SettingsModal";
+import { NotificationModal } from "./NotificationModal";
 
 export const Header = ({ email }: HeaderProps) => {
   const [open, setOpen] = useState(false);
@@ -19,6 +20,7 @@ export const Header = ({ email }: HeaderProps) => {
     email,
   });
   const [profileModalOpen, setProfileModalOpen] = useState(false);
+  const [notificationOpen, setNotificationOpen] = useState(false);
 
   const handleLogout = async () => {
     const success = await logoutUser();
@@ -95,7 +97,10 @@ export const Header = ({ email }: HeaderProps) => {
           {/* Right Section - Actions */}
           <div className="flex flex-shrink-0 items-center gap-2 sm:gap-3">
             {/* Notifications - Desktop */}
-            <button className="relative hidden h-10 w-10 items-center justify-center rounded-xl bg-white/60 backdrop-blur-sm ring-1 ring-black/5 transition-all hover:bg-white hover:shadow-md sm:flex sm:h-11 sm:w-11">
+            <button
+              onClick={() => setNotificationOpen(true)}
+              className="relative hidden h-10 w-10 items-center justify-center rounded-xl bg-white/60 backdrop-blur-sm ring-1 ring-black/5 transition-all hover:bg-white hover:shadow-md sm:flex sm:h-11 sm:w-11"
+            >
               <Bell className="h-5 w-5 text-primary" />
               <span className="absolute right-2 top-2 flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"></span>
@@ -244,7 +249,10 @@ export const Header = ({ email }: HeaderProps) => {
               {/* Mobile Menu Items */}
               <div className="p-4">
                 {/* Notifications */}
-                <button className="mb-2 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-primary/5 hover:text-primary">
+                <button
+                  onClick={() => setNotificationOpen(true)}
+                  className="mb-2 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-primary/5 hover:text-primary"
+                >
                   <div className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
                     <Bell className="h-5 w-5 text-primary" />
                     <span className="absolute right-1 top-1 flex h-2 w-2">
@@ -312,6 +320,8 @@ export const Header = ({ email }: HeaderProps) => {
         onClose={() => setSettingsModalOpen(false)}
         email={user.email}
       />
+
+      <NotificationModal isOpen={notificationOpen} onClose={() => setNotificationOpen(false)} />
     </>
   );
 };
